@@ -4,7 +4,6 @@ import {
   CalendarIcon,
   CpuIcon,
   DiscIcon,
-  KeyIcon,
   ParallelogramIcon,
   UsbIcon,
 } from '@phosphor-icons/react';
@@ -16,7 +15,6 @@ import {
   CardFooter,
   CardHeader,
 } from '@/core/components/ui/card';
-import { Separator } from '@/core/components/ui/separator';
 import { Typography } from '@/core/components/ui/typography';
 import { formatDate } from '@/core/lib/dates';
 import { cn } from '@/core/lib/utils';
@@ -36,7 +34,7 @@ export function DeviceCard({ device, className }: DeviceCardProps) {
     >
       <CardHeader className="pb-2 pt-4">
         <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
+          <div className="min-w-0 flex">
             <Typography
               variant="h4"
               className="truncate font-semibold leading-tight tracking-tight"
@@ -44,17 +42,17 @@ export function DeviceCard({ device, className }: DeviceCardProps) {
               {device.name}
             </Typography>
             <Typography
-              variant="p"
-              className="flex items-center gap-1 text-xs text-muted-foreground"
+              as="span"
+              variant="h4"
+              className="ml-1 text-muted-foreground"
             >
-              <KeyIcon size={10} weight="duotone" />#{device.id}
+              #{device.id}
             </Typography>
           </div>
         </div>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-2 pb-4">
-        <Separator />
         <DetailFieldItem
           icon={ParallelogramIcon}
           label={t('devices:fields.brand')}
