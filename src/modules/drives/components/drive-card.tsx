@@ -1,4 +1,4 @@
-import type { Device } from '../types';
+import type { Drive } from '../types';
 
 import {
   CalendarIcon,
@@ -20,9 +20,9 @@ import { formatDate } from '@/core/lib/dates';
 import { cn } from '@/core/lib/utils';
 import { DetailFieldItem } from '@/modules/shared/components/detail-field-item';
 
-import { DeviceActions } from './device-actions';
+import { DriveActions } from './drive-actions';
 
-export function DeviceCard({ device, className }: DeviceCardProps) {
+export function DriveCard({ drive, className }: DriveCardProps) {
   const { t } = useTranslation();
 
   return (
@@ -39,14 +39,14 @@ export function DeviceCard({ device, className }: DeviceCardProps) {
               variant="h4"
               className="truncate font-semibold leading-tight tracking-tight"
             >
-              {device.name}
+              {drive.name}
             </Typography>
             <Typography
               as="span"
               variant="h4"
               className="ml-1 text-muted-foreground"
             >
-              #{device.id}
+              #{drive.id}
             </Typography>
           </div>
         </div>
@@ -55,40 +55,40 @@ export function DeviceCard({ device, className }: DeviceCardProps) {
       <CardContent className="flex flex-col gap-2 pb-4">
         <DetailFieldItem
           icon={ParallelogramIcon}
-          label={t('devices:fields.brand')}
-          value={device.brand}
+          label={t('drives:fields.model')}
+          value={drive.model}
         />
         <DetailFieldItem
           icon={CpuIcon}
-          label={t('devices:fields.chip')}
-          value={device.chip}
+          label={t('drives:fields.serial')}
+          value={drive.serial}
         />
         <DetailFieldItem
           icon={DiscIcon}
-          label={t('devices:fields.os')}
-          value={device.os}
+          label={t('drives:fields.product')}
+          value={drive.product}
         />
         <DetailFieldItem
           icon={UsbIcon}
-          label={t('devices:fields.ports')}
-          value={device.ports}
+          label={t('drives:fields.storage')}
+          value={drive.storage}
         />
         <DetailFieldItem
           icon={CalendarIcon}
-          label={t('devices:fields.createdAt')}
-          value={formatDate(device.createdAt)}
+          label={t('drives:fields.createdAt')}
+          value={formatDate(drive.createdAt)}
         />
       </CardContent>
       <CardFooter className="flex items-center justify-end gap-2 border-t pt-2">
-        <DeviceActions device={device} variant="outline" />
+        <DriveActions drive={drive} variant="outline" />
       </CardFooter>
     </Card>
   );
 }
 
-export type DeviceCardProps = {
-  device: Device;
-  onEdit?: (device: Device) => void;
-  onDelete?: (device: Device) => void;
+export type DriveCardProps = {
+  drive: Drive;
+  onEdit?: (drive: Drive) => void;
+  onDelete?: (drive: Drive) => void;
   className?: string;
 };
