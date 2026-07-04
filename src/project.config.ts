@@ -23,6 +23,6 @@ export default {
     path: '/api',
   },
   router: {
-    defaultRoute: '/app/transactions',
+    defaultRoute: '/app/devices',
   },
 } as const;
