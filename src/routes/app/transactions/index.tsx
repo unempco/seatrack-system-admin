@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { UnderConstruction } from '@/layout/components/under-construction';
 import { createRouteHead } from '@/layout/lib/create-route-head';
 
 export const Route = createFileRoute('/app/transactions/')({
@@ -7,9 +8,5 @@ export const Route = createFileRoute('/app/transactions/')({
     type: 'index',
     titleI18nKey: 'transactions:name',
   }),
-  component: RouteComponent,
+  component: UnderConstruction,
 });
-
-function RouteComponent() {
-  return <div>Hello "/app/transactions/"!</div>;
-}
