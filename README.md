@@ -1,10 +1,10 @@
-# React Admin Template
+# Seatrack System Admin
 
-A modern, production-ready admin dashboard template built with React, TypeScript, and a carefully curated stack of tools for building scalable, type-safe web applications.
+An admin dashboard application for tracking check-in and check-out of equipment — such as devices and storage units — by employees who are part of a testing team. Built with React, TypeScript, and a curated stack of modern tools, using Supabase as the backend (API/Database).
 
 ## 📋 Overview
 
-This project is a fully-featured admin dashboard template that serves as a starting point for building admin interfaces and data management applications. It includes authentication, multi-language support, theming, and pre-built data table components.
+Seatrack System Admin allows a testing team to keep a reliable record of equipment movement: who took a device or storage unit out, and when it was returned. It provides authentication, multi-language support, theming, and pre-built data table components for managing this data efficiently.
 
 ## 🏗️ Tech Stack
 
@@ -14,6 +14,10 @@ This project is a fully-featured admin dashboard template that serves as a start
 - **TypeScript 5.9** - Strict type-safe development
 - **Vite 7** - Lightning-fast build tool and dev server
 - **SWC** - Ultra-fast JavaScript/TypeScript compiler for hot module replacement
+
+### Backend
+
+- **Supabase** - Backend-as-a-service providing the API and database
 
 ### Routing & State Management
 
@@ -76,7 +80,6 @@ src/
 │   └── lib/                # Layout utilities
 ├── modules/                 # Feature modules
 │   ├── auth/               # Authentication module
-│   ├── dummies/            # Sample feature module for reference
 │   └── shared/             # Shared module components
 ├── routes/                  # File-based routing structure
 │   ├── __root.tsx          # Root route with app layout
@@ -87,7 +90,7 @@ src/
 ├── styles/                  # Global styles
 ├── i18n.ts                 # i18next configuration
 ├── main.tsx                # Application entry point
-└── project.config.ts       # Project configuration
+└── project.config.ts       # Application configuration
 ```
 
 ## 🚀 Getting Started
@@ -96,12 +99,16 @@ src/
 
 - Node.js 18+ (22+ recommended)
 - pnpm (or npm/yarn)
+- A Supabase project (URL and anon key)
 
 ### Installation
 
 ```bash
 # Install dependencies
 pnpm install
+
+# Copy the environment variables template
+cp .env.example .env
 
 # Start development server
 pnpm dev
@@ -121,23 +128,12 @@ pnpm format
 
 ## 🔐 Authentication
 
-The template includes a complete authentication system:
+Authentication is handled through Supabase, providing:
 
-- **JWT-based authentication** with access and refresh tokens
-- **Automatic token refresh** on 401 responses
-- **Secure token storage** using cookies
-- **Protected routes** with authentication context
-- **Role-based access control** ready for extension
-
-### Making Authenticated Requests
-
-```typescript
-import { request } from '@/core/api/request';
-
-const data = await request<UserType>('GET', '/users', {
-  query: { page: 1 },
-});
-```
+- Secure sign-in backed by Supabase Auth
+- Session persistence and automatic session refresh
+- Protected routes with authentication context
+- Role-based access control ready for extension
 
 ## 🌍 Internationalization
 
@@ -175,49 +171,59 @@ Pre-built data table components with:
 - Row selection with checkboxes
 - Customizable columns
 
-## 🐳 Deployment
-
-### Docker
-
-The project includes a multi-stage Dockerfile for optimized production builds:
-
-```bash
-# Build image
-docker build -t react-admin:latest .
-
-# Run container
-docker run -p 80:80 react-admin:latest
-```
-
-Nginx serves the SPA with proper routing configuration for hash-based navigation.
-
 ## 🔧 Configuration
 
 Key configuration files:
 
-- `vite.config.ts` - Vite build configuration
+- `vite.config.ts` - Vite build configuration (base path for GitHub Pages)
 - `tsconfig.json` - TypeScript configuration
 - `eslint.config.js` - Linting rules
 - `prettier.config.js` - Code formatting
 - `tailwind.config.js` - Tailwind CSS configuration
-- `src/project.config.ts` - Application configuration (API URL, branding, etc.)
+- `src/project.config.ts` - Application configuration (branding, etc.)
 
 ### Environment Variables
 
-```bash
-# API Configuration
-VITE_BASE_API_URL=http://api.example.com
+Copy `.env.example` to `.env` and fill in the values:
 
+```bash
 # Router Configuration
 VITE_BROWSER_HISTORY=true  # Use browser history instead of hash history
+
+# Supabase Configuration
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
+
+## 🔄 CI/CD
+
+The repository includes two GitHub Actions workflows:
+
+- **`ci.yml`** - Runs on pull requests targeting `main` or `develop`. It checks Prettier formatting (`pnpm exec prettier --check .`) and verifies the project builds successfully (`pnpm build`), failing fast on formatting issues, TypeScript errors, or Vite build/compilation errors. Keep this in mind before opening a PR — run `pnpm format` and `pnpm build` locally to catch issues early.
+- **`deploy.yml`** - Handles the actual deployment to GitHub Pages (see below).
+
+## 🚢 Deployment
+
+The project is currently deployed to **GitHub Pages** via the included `deploy.yml` workflow.
+
+### Running locally or on your own server
+
+Copy `.env.example` to `.env` and set the values described above.
+
+### Deploying via the GitHub Pages workflow
+
+If you want to keep using `deploy.yml` for GitHub Pages, the environment variables must instead be configured as **Production environment variables** in the repository settings (Settings → Environments → Production), since the workflow builds the app in CI and doesn't read a local `.env` file.
+
+### Base path
+
+By default, the project is configured to run under the path GitHub Pages provides automatically: `<organization>.github.io/<repository-name>`. If a custom domain is set up in the future, update the `base` option in `vite.config.ts` accordingly.
 
 ## 📝 Development Guidelines
 
 - Use **TanStack Router** for all routing - avoid manual route management
 - Leverage **React Query** for server state - use hooks from `useQuery`, `useMutation`
 - Keep components **small and focused** - extract reusable components to `core/components`
-- Use **Zod schemas** for API validation and form validation
+- Use **Zod schemas** for form validation
 - Add translations to locale files instead of hardcoding strings
 - Follow the **modular structure** - group related features in `modules/`
 
