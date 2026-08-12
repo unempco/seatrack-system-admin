@@ -19,9 +19,9 @@ describe('permission validator', () => {
   });
 
   it('matches any permission by default', () => {
-    expect(
-      validator(['Dummies.Read', 'Dummies.Delete'], userPermissions),
-    ).toBe(true);
+    expect(validator(['Dummies.Read', 'Dummies.Delete'], userPermissions)).toBe(
+      true,
+    );
     expect(
       validator(['Dummies.Delete', 'Dummies.Modify'], userPermissions),
     ).toBe(false);

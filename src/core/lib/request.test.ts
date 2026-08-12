@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { MissingIdError } from '@/core/errors';
-import {
-  assertValidId,
-  buildUrl,
-  isLoginPath,
-} from '@/core/lib/request';
+import { assertValidId, buildUrl, isLoginPath } from '@/core/lib/request';
 
 describe('buildUrl', () => {
   it('builds a URL from base, api path, and resource path', () => {
@@ -17,9 +13,9 @@ describe('buildUrl', () => {
   });
 
   it('appends query parameters and skips nullish values', () => {
-    expect(
-      buildUrl('/items', { page: 1, search: 'test' }),
-    ).toBe('http://localhost:3000/api/items?page=1&search=test');
+    expect(buildUrl('/items', { page: 1, search: 'test' })).toBe(
+      'http://localhost:3000/api/items?page=1&search=test',
+    );
   });
 
   it('returns the URL without a query string when query is empty', () => {

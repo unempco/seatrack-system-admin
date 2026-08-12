@@ -1,8 +1,8 @@
 import type { ColumnDef } from '@tanstack/react-table';
 
-import userEvent from '@testing-library/user-event';
-import { screen, within } from '@testing-library/react';
 import { useState } from 'react';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { DataTable } from '@/core/components/data/data-table';
@@ -98,7 +98,9 @@ describe('DataTable', () => {
       />,
     );
 
-    await user.click(screen.getByRole('checkbox', { name: /select row alpha/i }));
+    await user.click(
+      screen.getByRole('checkbox', { name: /select row alpha/i }),
+    );
 
     expect(screen.getByTestId('selected-count')).toHaveTextContent('1');
   });
@@ -116,18 +118,22 @@ describe('DataTable', () => {
       />,
     );
 
-    await user.click(screen.getByRole('checkbox', { name: /select all rows/i }));
+    await user.click(
+      screen.getByRole('checkbox', { name: /select all rows/i }),
+    );
 
     expect(screen.getByTestId('selected-count')).toHaveTextContent('2');
   });
 
   it('uses accessible table semantics', () => {
-    renderWithProviders(
-      <DataTableHarness data={[{ id: 1, name: 'Alpha' }]} />,
-    );
+    renderWithProviders(<DataTableHarness data={[{ id: 1, name: 'Alpha' }]} />);
 
     const table = screen.getByRole('table');
-    expect(within(table).getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
-    expect(within(table).getByRole('cell', { name: 'Alpha' })).toBeInTheDocument();
+    expect(
+      within(table).getByRole('columnheader', { name: 'Name' }),
+    ).toBeInTheDocument();
+    expect(
+      within(table).getByRole('cell', { name: 'Alpha' }),
+    ).toBeInTheDocument();
   });
 });

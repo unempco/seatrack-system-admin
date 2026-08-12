@@ -32,7 +32,10 @@ export const handlers = [
 
   http.post(`${API_BASE}/auth/login`, async ({ request }) => {
     const body = (await request.json()) as { email: string };
-    return HttpResponse.json({ accessToken: 'token', user: { email: body.email } });
+    return HttpResponse.json({
+      accessToken: 'token',
+      user: { email: body.email },
+    });
   }),
 
   http.post(`${API_BASE}/auth/refresh`, () => {
@@ -45,10 +48,7 @@ export const handlers = [
   http.get(`${API_BASE}/protected`, ({ request }) => {
     const auth = request.headers.get('Authorization');
 
-    if (
-      auth === 'Bearer valid-token' ||
-      auth === 'Bearer new-access-token'
-    ) {
+    if (auth === 'Bearer valid-token' || auth === 'Bearer new-access-token') {
       return HttpResponse.json({ ok: true });
     }
 

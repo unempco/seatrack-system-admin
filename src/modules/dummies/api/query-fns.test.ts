@@ -4,8 +4,8 @@ import { NotOkResponseError } from '@/core/errors';
 import {
   createDummy,
   deleteDummy,
-  getDummyById,
   getDummiesList,
+  getDummyById,
   updateDummy,
 } from '@/modules/dummies/api/query-fns';
 import {
@@ -82,9 +82,9 @@ describe('dummies query-fns', () => {
       expect(created.email).toBe(dummyFormFixture.email);
 
       const stored = JSON.parse(localStorage.getItem('dummies') ?? '[]');
-      expect(stored.some((d: { email: string }) => d.email === created.email)).toBe(
-        true,
-      );
+      expect(
+        stored.some((d: { email: string }) => d.email === created.email),
+      ).toBe(true);
     });
 
     it('rejects duplicate emails with a conflict error', async () => {
