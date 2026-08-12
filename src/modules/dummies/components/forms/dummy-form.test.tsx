@@ -1,5 +1,5 @@
-import userEvent from '@testing-library/user-event';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { DummyForm } from '@/modules/dummies/components/forms/dummy-form';

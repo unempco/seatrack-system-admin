@@ -1,8 +1,8 @@
+import { toast } from 'sonner';
 import { describe, expect, it, vi } from 'vitest';
 
 import { NotOkResponseError } from '@/core/errors';
 import { onMutationError } from '@/core/lib/mutation-toast';
-import { toast } from 'sonner';
 
 vi.mock('sonner', () => ({
   toast: {

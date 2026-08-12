@@ -1,3 +1,4 @@
+import type { DateFormat } from '@/core/constants/dates';
 import type { Language } from '@/layout/constants/locales';
 
 import React, { useEffect, useState } from 'react';
@@ -11,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/core/components/ui/popover';
-import { dateFormatValue, type DateFormat } from '@/core/constants/dates';
+import { dateFormatValue } from '@/core/constants/dates';
 import { formatDate } from '@/core/lib/dates';
 import { toSentenceCase } from '@/core/lib/utils';
 

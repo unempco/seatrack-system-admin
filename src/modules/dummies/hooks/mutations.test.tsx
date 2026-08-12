@@ -3,15 +3,14 @@ import type { ReactNode } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
+import { toast } from 'sonner';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { toast } from 'sonner';
-
+import i18n from '@/i18n';
 import {
   useCreateDummyMutation,
   useDeleteDummyMutation,
 } from '@/modules/dummies/hooks/mutations';
-import i18n from '@/i18n';
 import { dummyFormFixture, dummyListFixture } from '@/test/fixtures/dummies';
 import { createTestQueryClient } from '@/test/utils';
 
@@ -50,10 +49,9 @@ describe('dummy mutations', () => {
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
     const onSuccess = vi.fn();
 
-    const { result } = renderHook(
-      () => useCreateDummyMutation({ onSuccess }),
-      { wrapper: createMutationWrapper(queryClient) },
-    );
+    const { result } = renderHook(() => useCreateDummyMutation({ onSuccess }), {
+      wrapper: createMutationWrapper(queryClient),
+    });
 
     result.current.mutate({
       ...dummyFormFixture,
