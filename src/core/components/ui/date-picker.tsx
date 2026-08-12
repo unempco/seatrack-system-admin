@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/core/components/ui/popover';
-import { DateFormat } from '@/core/constants/dates';
+import { dateFormatValue, type DateFormat } from '@/core/constants/dates';
 import { formatDate } from '@/core/lib/dates';
 import { toSentenceCase } from '@/core/lib/utils';
 
@@ -21,7 +21,7 @@ import { toSentenceCase } from '@/core/lib/utils';
 export function DatePicker({
   value,
   placeholder,
-  dateFormat = DateFormat.INT_LONG,
+  dateFormat = dateFormatValue.intLong,
   disabled,
   onChange,
   ...props
