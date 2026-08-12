@@ -1,4 +1,4 @@
-name: CI (Code Quality & Build)
+name: CI
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
       - develop
 
 jobs:
-  lint-formatting:
-    name: Check Prettier Formatting
+  verify:
+    name: Lint, Test & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -26,36 +26,14 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      # This checks formatting without altering files.
-      # It fails the job instantly if a file doesn't match Prettier styles.
-      - name: Run Prettier Check
+      - name: Check Prettier formatting
         run: pnpm exec prettier --check .
 
-  production-build:
-    name: Production Build Verification
-    runs-on: ubuntu-latest
+      - name: Run tests
+        run: pnpm test
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install Dependencies
-        run: pnpm i --frozen-lockfile
-
-      # Fails the job instantly if there are TypeScript, compilation, or Vite syntax errors
-      - name: Build Project
+      - name: Build
         run: pnpm build
