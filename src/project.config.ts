@@ -1,4 +1,4 @@
-import { DateFormat } from '@/core/constants/dates';
+import { dateFormatValue } from '@/core/constants/dates';
 import { withBaseUrl } from '@/core/lib/base-url';
 
 // Some of this configs will be user decisions
@@ -12,8 +12,8 @@ export default {
   },
   time: {
     timeZone: 'America/Tijuana',
-    dateTimeFormat: `${DateFormat.INT_ABBR} hh:mm A`,
-    dateFormat: DateFormat.INT_ABBR,
+    dateTimeFormat: `${dateFormatValue.intAbbr} hh:mm A`,
+    dateFormat: dateFormatValue.intAbbr,
   },
   money: {
     currency: 'USD',

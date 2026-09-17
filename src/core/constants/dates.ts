@@ -1,15 +1,19 @@
-export const DateFormat = {
-  ISO: 'YYYY-MM-DD',
-  US: 'MM/DD/YYYY',
-  EUR_LATAM: 'DD/MM/YYYY',
-  EAST_ASIA: 'YYYY/MM/DD',
-  US_LONG: 'MMMM DD, YYYY',
-  INT_LONG: 'DD MMMM YYYY',
-  US_ABBR: 'MMM DD, YYYY',
-  INT_ABBR: 'DD MMM YYYY',
-  MONT_YEAR: 'MMMM YYYY',
-  MONT_YEAR_ABBR: 'MMM YYYY',
-  YEAR_ONLY: 'YYYY',
+export const dateFormatValue = {
+  iso: 'YYYY-MM-DD',
+  us: 'MM/DD/YYYY',
+  eurLatam: 'DD/MM/YYYY',
+  eastAsia: 'YYYY/MM/DD',
+  usLong: 'MMMM DD, YYYY',
+  intLong: 'DD MMMM YYYY',
+  usAbbr: 'MMM DD, YYYY',
+  intAbbr: 'DD MMM YYYY',
+  monthYear: 'MMMM YYYY',
+  monthYearAbbr: 'MMM YYYY',
+  yearOnly: 'YYYY',
 } as const;
 
-export type DateFormat = (typeof DateFormat)[keyof typeof DateFormat];
+export const dateFormatsKeys = Object.keys(dateFormatValue) as DateFormatKey[];
+export const DEFAULT_DATE_FORMAT_KEY: DateFormatKey = dateFormatsKeys[5];
+
+export type DateFormatKey = keyof typeof dateFormatValue;
+export type DateFormat = (typeof dateFormatValue)[keyof typeof dateFormatValue];
